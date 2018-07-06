@@ -19,8 +19,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500, require_ssl=True)
 
-DATABASES['default'].update(db_from_env)
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -88,6 +86,7 @@ DATABASES = {
         'PORT': '5432', 
     }
 }
+DATABASES['default'].update(db_from_env)
 
 
 # Password validation
