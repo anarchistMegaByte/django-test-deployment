@@ -3,3 +3,7 @@
 2018-07-05 17:04:45.322 IST [2954] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
 2018-07-05 17:04:45.337 IST [2955] LOG:  database system was shut down at 2018-07-05 16:59:54 IST
 2018-07-05 17:04:45.342 IST [2954] LOG:  database system is ready to accept connections
+2018-07-06 10:05:34.680 IST [2954] LOG:  received smart shutdown request
+2018-07-06 10:05:34.775 IST [2954] LOG:  worker process: logical replication launcher (PID 2961) exited with exit code 1
+2018-07-06 10:05:34.776 IST [2956] LOG:  shutting down
+2018-07-06 10:05:34.880 IST [2954] LOG:  database system is shut down
