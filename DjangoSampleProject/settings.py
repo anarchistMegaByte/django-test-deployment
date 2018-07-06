@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=500, require_ssl=True)
+db_from_env = dj_database_url.config(conn_max_age=500, ssl_require=True)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
