@@ -9,7 +9,8 @@ import json
 def saveUserInfo(request):
     if request.method == 'POST':
         received_json_data=json.loads(request.body)
-        return HttpResponse(received_json_data)
+        answer = received_json_data['user_name']
+        return HttpResponse(answer)
     else:
         return HttpResponse("Hello World")
 
