@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.template.defaulttags import csrf_token
+from django.template.defaulttags import csrf_excempt
 import requests  
 import json
 
@@ -10,4 +10,6 @@ def saveUserInfo(request):
     if request.method == 'POST':
         received_json_data=json.loads(request.body)
         return HttpResponse(received_json_data)
+    else:
+        return HttpResponse("Hello World")
 
