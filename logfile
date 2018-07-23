@@ -7,3 +7,8 @@
 2018-07-06 10:05:34.775 IST [2954] LOG:  worker process: logical replication launcher (PID 2961) exited with exit code 1
 2018-07-06 10:05:34.776 IST [2956] LOG:  shutting down
 2018-07-06 10:05:34.880 IST [2954] LOG:  database system is shut down
+2018-07-23 16:20:23.875 IST [5717] LOG:  listening on IPv6 address "::1", port 5432
+2018-07-23 16:20:23.889 IST [5717] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2018-07-23 16:20:23.916 IST [5717] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2018-07-23 16:20:24.097 IST [5718] LOG:  database system was shut down at 2018-07-08 16:37:45 IST
+2018-07-23 16:20:24.178 IST [5717] LOG:  database system is ready to accept connections
