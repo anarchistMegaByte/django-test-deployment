@@ -5,7 +5,7 @@ import requests
 import json
 
 # Create your views here.
-@csrf_excempt
+@csrf_exempt
 def saveUserInfo(request):
     if request.method == 'POST':
         received_json_data=json.loads(request.body)
