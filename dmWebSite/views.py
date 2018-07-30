@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from dmWebSite.models import dmWebsiteUser
+from dmWebSite.models import dmWebsiteUserOnlyEmails
 import requests  
 import json
 
@@ -14,5 +15,15 @@ def saveUserInfo(request):
         u1.save()
         return HttpResponse("Success!!")
     else:
-        return HttpResponse("Hello World")
+        return HttpResponse("Not a POST request.")
+
+@csrf_exempt
+def saveUserEmail(request):
+    if request.method == 'POST':
+        received_json_data=json.loads(request.body)
+        u1 = dmWebsiteUserOnlyEmails(user_email=received_json_data['user_email'])
+        u1.save()
+        return HttpResponse("Success!!")
+    else:
+        return HttpResponse("Error : Not a POST request.")
 
