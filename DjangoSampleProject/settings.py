@@ -77,6 +77,7 @@ WSGI_APPLICATION = 'DjangoSampleProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+#For MAC
 DATABASES = {
     'default': { 
         'ENGINE': 'django.db.backends.postgresql',
@@ -87,6 +88,18 @@ DATABASES = {
         'PORT': '5432', 
     }
 }
+# For Ubuntu
+# export DATABASE_URL='postgres://djangosampleuser:password@localhost:5432/djangosampledb 
+# DATABASES = {
+#     'default': { 
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'djangosampledb',
+#         'USER': 'djangosampleuser',
+#         'PASSWORD': 'password',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
 DATABASES['default'].update(db_from_env)
 
 
