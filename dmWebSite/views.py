@@ -21,9 +21,12 @@ def saveUserInfo(request):
 def saveUserEmail(request):
     if request.method == 'POST':
         received_json_data=json.loads(request.body)
-        u1 = dmWebsiteUserOnlyEmails(user_email=received_json_data['user_email'])
+        u1, created = dmWebsiteUserOnlyEmails.objects.get_or_create(
+                            user_email=received_json_data['user_email']
+                        )
+        #u1 = dmWebsiteUserOnlyEmails(user_email=received_json_data['user_email'])
         u1.save()
-        return HttpResponse("Success!!")
+        return HttpResponse("Success!! Created : " + str(created))
     else:
         return HttpResponse("Error : Not a POST request.")
 
