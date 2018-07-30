@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from dmWebSite.models import dmWebsiteUser
 from dmWebSite.models import dmWebsiteUserOnlyEmails
+from dmWebSite.models import dmWebsiteContactUs
+
 import requests  
 import json
 
@@ -45,7 +47,7 @@ def saveUserEmail(request):
 def saveContactUsInfo(request):
     if request.method == 'POST':
         received_json_data=json.loads(request.body)
-        u1, created = dmWebsiteUser.objects.get_or_create( 
+        u1, created = dmWebsiteContactUs.objects.get_or_create( 
                             user_email=received_json_data['user_email']
                         )
         u1.user_first_name = received_json_data['user_first_name']
