@@ -14,3 +14,12 @@ class dmWebsiteUserOnlyEmails(models.Model):
 
     def __str__(self):
         return self.user_name
+
+class dmWebsiteContactUs(models.Model):
+    user_first_name = models.CharField(max_length=50)
+    user_last_name = models.CharField(max_length=50)
+    user_email = models.CharField(max_length=50)
+    user_message = models.CharField(max_length=600)
+
+    def __str__(self):
+        return self.user_name

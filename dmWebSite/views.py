@@ -41,3 +41,22 @@ def saveUserEmail(request):
     else:
         return HttpResponse("Error : Not a POST request.")
 
+@csrf_exempt
+def saveContactUsInfo(request):
+    if request.method == 'POST':
+        received_json_data=json.loads(request.body)
+        u1, created = dmWebsiteUser.objects.get_or_create( 
+                            user_email=received_json_data['user_email']
+                        )
+        u1.user_first_name = received_json_data['user_first_name']
+        u1.user_last_name = received_json_data['user_last_name']
+        u1.user_message = received_json_data['user_message']
+        # u1 = dmWebsiteUser(user_name=received_json_data['user_name'], user_email=received_json_data['user_email'], user_phone=received_json_data['user_phone'])
+        u1.save()
+        if created:
+            return HttpResponse("Success!! Created : " + str(created))
+        else:
+            return HttpResponse("Success!! Entry already present")
+    else:
+        return HttpResponse("Not a POST request.")
+
