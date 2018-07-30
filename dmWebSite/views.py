@@ -26,7 +26,10 @@ def saveUserEmail(request):
                         )
         #u1 = dmWebsiteUserOnlyEmails(user_email=received_json_data['user_email'])
         u1.save()
-        return HttpResponse("Success!! Created : " + str(created))
+        if created:
+            return HttpResponse("Success!! Created : " + str(created))
+        else:
+            return HttpResponse("Success!! Entry already present")
     else:
         return HttpResponse("Error : Not a POST request.")
 
