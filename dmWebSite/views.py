@@ -11,7 +11,7 @@ import json
 def saveUserInfo(request):
     if request.method == 'POST':
         received_json_data=json.loads(request.body)
-        u1, created = dmWebsiteUserOnlyEmails.objects.get_or_create(
+        u1, created = dmWebsiteUser.objects.get_or_create(
                             user_name=received_json_data['user_name'], 
                             user_email=received_json_data['user_email'], 
                             user_phone=received_json_data['user_phone']
