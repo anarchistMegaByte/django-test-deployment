@@ -7,6 +7,7 @@ from dmWebSite.models import dmWebsiteContactUs
 
 import requests  
 import json
+from datetime import date,datetime
 
 # Create your views here.
 @csrf_exempt
@@ -19,6 +20,7 @@ def saveUserInfo(request):
                             user_phone=received_json_data['user_phone']
                         )
         # u1 = dmWebsiteUser(user_name=received_json_data['user_name'], user_email=received_json_data['user_email'], user_phone=received_json_data['user_phone'])
+        u1.sts = datetime.today()
         u1.save()
         if created:
             return HttpResponse("Success!! Created : " + str(created))
@@ -35,6 +37,7 @@ def saveUserEmail(request):
                             user_email=received_json_data['user_email']
                         )
         #u1 = dmWebsiteUserOnlyEmails(user_email=received_json_data['user_email'])
+        u1.sts = datetime.today()
         u1.save()
         if created:
             return HttpResponse("Success!! Created : " + str(created))
@@ -54,6 +57,7 @@ def saveContactUsInfo(request):
         u1.user_last_name = received_json_data['user_last_name']
         u1.user_message = received_json_data['user_message']
         # u1 = dmWebsiteUser(user_name=received_json_data['user_name'], user_email=received_json_data['user_email'], user_phone=received_json_data['user_phone'])
+        u1.sts = datetime.today()
         u1.save()
         if created:
             return HttpResponse("Success!! Created : " + str(created))
