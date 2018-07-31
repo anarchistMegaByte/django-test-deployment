@@ -15,11 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from dmWebSite.views import saveUserInfo,saveUserEmail,saveContactUsInfo
+from dmWebSite.views import saveUserInfo,saveUserEmail,saveContactUsInfo,saveProjectDetails
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^user_info/', saveUserInfo),
     url(r'^user_email/', saveUserEmail),
-    url(r'^contact_us/', saveContactUsInfo)
+    url(r'^contact_us/', saveContactUsInfo),
+    url(r'^submit_project_details/', saveProjectDetails)
 ]

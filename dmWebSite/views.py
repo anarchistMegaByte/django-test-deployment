@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from dmWebSite.models import dmWebsiteUser
 from dmWebSite.models import dmWebsiteUserOnlyEmails
-from dmWebSite.models import dmWebsiteContactUs
+from dmWebSite.models import dmWebsiteContactUs,dmWebsiteSubmitProjectDetails
 
 import requests  
 import json
@@ -56,6 +56,30 @@ def saveContactUsInfo(request):
         u1.user_first_name = received_json_data['user_first_name']
         u1.user_last_name = received_json_data['user_last_name']
         u1.user_message = received_json_data['user_message']
+        # u1 = dmWebsiteUser(user_name=received_json_data['user_name'], user_email=received_json_data['user_email'], user_phone=received_json_data['user_phone'])
+        u1.sts = datetime.today()
+        u1.save()
+        if created:
+            return HttpResponse("Success!! Created : " + str(created))
+        else:
+            return HttpResponse("Success!! Entry already present")
+    else:
+        return HttpResponse("Not a POST request.")
+
+@csrf_exempt
+def saveProjectDetails(request):
+    if request.method == 'POST':
+        received_json_data=json.loads(request.body)
+        u1, created = dmWebsiteSubmitProjectDetails.objects.get_or_create( 
+                            user_email=received_json_data['user_email'],
+                            user_phone_number=received_json_data['user_phone_number']
+                        )
+        u1.user_name = received_json_data['user_name']
+        u1.user_institution = received_json_data['user_institution']
+        u1.user_domain = received_json_data['user_domain']
+        u1.user_project_title = received_json_data['user_project_title']
+        u1.user_project_description = received_json_data['user_project_description']
+        u1.sts = datetime.today()
         # u1 = dmWebsiteUser(user_name=received_json_data['user_name'], user_email=received_json_data['user_email'], user_phone=received_json_data['user_phone'])
         u1.sts = datetime.today()
         u1.save()
