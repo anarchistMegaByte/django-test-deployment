@@ -176,4 +176,4 @@ def main_func():
     fit_model(dnn_model, train_set, steps=2000)
     evaluate_model(dnn_model, test_set, steps=1)
 
-    predict_class(dnn_model, {0: 'benign', 1: 'malignant'})
+    # predict_class(dnn_model, {0: 'benign', 1: 'malignant'})
