@@ -9,6 +9,7 @@ import requests
 import json
 from datetime import date,datetime
 from utils.classifier import construct_net, predict_class
+from utils.main import main_func
 import numpy as np
 
 # Create your views here.
@@ -125,3 +126,13 @@ def get_cancer_results(request):
     else:
         return HttpResponse("Not a POST request.")
 
+@csrf_exempt
+def saveUserEmail(request):
+    if request.method == 'GET':
+        main_func()
+        
+        return HttpResponse("Success!! Created")
+        
+        
+    else:
+        return HttpResponse("Error : Not a GET request.")
