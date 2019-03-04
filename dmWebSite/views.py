@@ -8,9 +8,10 @@ from dmWebSite.models import dmWebsiteContactUs,dmWebsiteSubmitProjectDetails
 import requests  
 import json
 from datetime import date,datetime
-from utils.classifier import construct_net, predict_class
+from utils.classifier import construct_net, predict_class_new
 from utils.main import main_func
 import numpy as np
+import tensorflow as tf
 
 # Create your views here.
 @csrf_exempt
@@ -106,6 +107,7 @@ def saveProjectDetails(request):
 @csrf_exempt
 def get_cancer_results(request):
     if request.method == 'POST':
+        tf.reset_default_graph()
         received_json_data=json.loads(request.body)
         model_dir = 'nn_classifier'
         dnn_model = construct_net(num_features=9, model_dir=model_dir)
@@ -119,12 +121,19 @@ def get_cancer_results(request):
         ori_arr.append(received_json_data['bland_chrom'])
         ori_arr.append(received_json_data['norm_nucleoli'])
         ori_arr.append(received_json_data['mitoses'])
-        x = np.array(ori_arr)
-        name = predict_class(dnn_model, {0: 'benign', 1: 'malignant'}, x)
+        x = np.array([ori_arr], dtype=np.float32)
+        print(x)
+        name = predict_class_new(dnn_model, {0: 'benign', 1: 'malignant'}, x)
         
         return HttpResponse(name)
     else:
-        return HttpResponse("Not a POST request.")
+        model_dir = 'nn_classifier'
+        dnn_model = construct_net(num_features=9, model_dir=model_dir)
+        manav = np.array([np.random.randint(11, size=9)], dtype=np.float32)
+    
+        #predict_class(dnn_model, {0: 'benign', 1: 'malignant'})
+        name = predict_class_new(dnn_model, {0: 'benign', 1: 'malignant'}, manav)
+        return HttpResponse(name)
 
 @csrf_exempt
 def start_training(request):
