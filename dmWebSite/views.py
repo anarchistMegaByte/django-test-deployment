@@ -127,7 +127,7 @@ def get_cancer_results(request):
         return HttpResponse("Not a POST request.")
 
 @csrf_exempt
-def saveUserEmail(request):
+def start_training(request):
     if request.method == 'GET':
         main_func()
         
