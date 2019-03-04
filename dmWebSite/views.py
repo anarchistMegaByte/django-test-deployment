@@ -8,6 +8,8 @@ from dmWebSite.models import dmWebsiteContactUs,dmWebsiteSubmitProjectDetails
 import requests  
 import json
 from datetime import date,datetime
+from utils.classifier import construct_net, predict_class
+import numpy as np
 
 # Create your views here.
 @csrf_exempt
@@ -87,6 +89,39 @@ def saveProjectDetails(request):
             return HttpResponse("Success!! Created : " + str(created))
         else:
             return HttpResponse("Success!! Entry already present")
+    else:
+        return HttpResponse("Not a POST request.")
+
+
+# clump_thickness: 0
+# unif_cell_size: 1
+# unif_cell_shape: 2
+# marg_adhesion: 3
+# single_epith_cell_size: 4
+# bare_nuclei: 5
+# bland_chrom: 6
+# norm_nucleoli: 7
+# mitoses: 8
+@csrf_exempt
+def get_cancer_results(request):
+    if request.method == 'POST':
+        received_json_data=json.loads(request.body)
+        model_dir = 'nn_classifier'
+        dnn_model = construct_net(num_features=9, model_dir=model_dir)
+        ori_arr = []
+        ori_arr.append(received_json_data['clump_thickness'])
+        ori_arr.append(received_json_data['unif_cell_size'])
+        ori_arr.append(received_json_data['unif_cell_shape'])
+        ori_arr.append(received_json_data['marg_adhesion'])
+        ori_arr.append(received_json_data['single_epith_cell_size'])
+        ori_arr.append(received_json_data['bare_nuclei'])
+        ori_arr.append(received_json_data['bland_chrom'])
+        ori_arr.append(received_json_data['norm_nucleoli'])
+        ori_arr.append(received_json_data['mitoses'])
+        x = np.array(ori_arr)
+        name = predict_class(dnn_model, {0: 'benign', 1: 'malignant'}, x)
+        
+        return HttpResponse(name)
     else:
         return HttpResponse("Not a POST request.")
 
