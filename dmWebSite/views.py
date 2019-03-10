@@ -13,6 +13,7 @@ from utils.main import main_func
 import numpy as np
 import tensorflow as tf
 from django.http import JsonResponse
+from utils.clev.clev_cancer import clev_main, clev_can_pred
 
 # Create your views here.
 @csrf_exempt
@@ -146,3 +147,48 @@ def start_training(request):
         
     else:
         return HttpResponse("Error : Not a GET request.")
+
+
+@csrf_exempt
+def train_clev(request):
+    if request.method == 'GET':
+        resp = clev_main()
+        
+        return HttpResponse(resp)
+        
+        
+    else:
+        return HttpResponse("Error : Not a GET request.")
+
+
+# {
+#     "Age": 24.0,
+#     "Number of sexual partners": 3.0,
+#     "First sexual intercourse": 26.0,
+#     "Num of pregnancies": 4.0,
+#     "Smokes": 5.0,
+#     "Hormonal Contraceptives": 1.0,
+#     "STDs:condylomatosis": 0.0,
+#     "STDs: Number of diagnosis": 0.0,
+#     "Citology": 1.0
+# }
+@csrf_exempt
+def predict_clev(request):
+    if request.method == 'POST':
+        received_json_data=json.loads(request.body)
+        name = clev_can_pred(received_json_data)
+        return JsonResponse(name)
+    else:
+        input_data = {
+            "Age": 24.0,
+            "Number of sexual partners": 9.0,
+            "First sexual intercourse": 40.0,
+            "Num of pregnancies": 2.0,
+            "Smokes": 5.0,
+            "Hormonal Contraceptives": 1.0,
+            "STDs:condylomatosis": 0.0,
+            "STDs: Number of diagnosis": 0.0,
+            "Citology": 1.0
+        }
+        name = clev_can_pred(input_data)
+        return JsonResponse(name)

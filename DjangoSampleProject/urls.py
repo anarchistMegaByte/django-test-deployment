@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from dmWebSite.views import saveUserInfo,saveUserEmail,saveContactUsInfo,saveProjectDetails, get_cancer_results, start_training
+from dmWebSite.views import saveUserInfo,saveUserEmail,saveContactUsInfo,saveProjectDetails, get_cancer_results, start_training, train_clev, predict_clev
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -25,5 +25,8 @@ urlpatterns = [
     url(r'^submit_project_details/', saveProjectDetails),
 
     url(r'^get_cancer_results/', get_cancer_results),
-    url(r'^start_training/', start_training)
+    url(r'^start_training/', start_training),
+
+    url(r'^train_clev/', train_clev),
+    url(r'^pred_clev/', predict_clev)
 ]
