@@ -47,7 +47,7 @@ def clev_main():
     X = final_df.drop('Cancer', axis=1)
     y = final_df['Cancer']
 
-    print(df_cancer.head())
+    print(final_df.head())
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, shuffle=True, test_size = 0.25,random_state=2019)
     # random_forest = RandomForestClassifier(n_estimators=500, random_state=2019).fit(X_train, y_train)
