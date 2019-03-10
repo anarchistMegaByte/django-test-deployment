@@ -23,7 +23,24 @@ def predict_class_new(model, binary_mappings,x):
     """Predict classification for new data"""
     print(x)
     print(type(x))
-    binary_prediction = list(model.predict(input_fn=lambda: ret_ans(x)))
+    binary_prediction = list(model.predict_classes(input_fn=lambda: ret_ans(x)))
 
     print("\nClass Prediction: %s\n" % binary_mappings[binary_prediction[0]])
-    return binary_mappings[binary_prediction[0]]
+    
+    binary_prediction = list(model.predict_proba(x))
+    print(binary_prediction[0])
+    benign = binary_prediction[0][0]*100
+    malignant = binary_prediction[0][1]*100
+    cancer_type = {}
+    if (benign > malignant):
+        cancer_type["type"] = "benign"
+        cancer_type["probability"] = benign
+    else:
+        if benign < malignant:
+            cancer_type["type"] = "malignant"
+            cancer_type["probability"] = malignant
+        else:
+            cancer_type["type"] = "malignant"
+            cancer_type["probability"] = malignant
+    # return binary_mappings[binary_prediction[0]]
+    return cancer_type

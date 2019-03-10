@@ -12,6 +12,7 @@ from utils.classifier import construct_net, predict_class_new
 from utils.main import main_func
 import numpy as np
 import tensorflow as tf
+from django.http import JsonResponse
 
 # Create your views here.
 @csrf_exempt
@@ -125,7 +126,7 @@ def get_cancer_results(request):
         print(x)
         name = predict_class_new(dnn_model, {0: 'benign', 1: 'malignant'}, x)
         
-        return HttpResponse(name)
+        return JsonResponse(name)
     else:
         model_dir = 'nn_classifier'
         dnn_model = construct_net(num_features=9, model_dir=model_dir)
@@ -133,7 +134,7 @@ def get_cancer_results(request):
     
         #predict_class(dnn_model, {0: 'benign', 1: 'malignant'})
         name = predict_class_new(dnn_model, {0: 'benign', 1: 'malignant'}, manav)
-        return HttpResponse(name)
+        return JsonResponse(name)
 
 @csrf_exempt
 def start_training(request):
